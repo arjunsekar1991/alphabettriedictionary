@@ -7,8 +7,13 @@
 // Time complexity : Theta(n) number of nodes
 Trie::~Trie()
 {
+	//delete root;
+	trieMemoryRelease(root);
+/*	*root->children = nullptr;
+	 root=nullptr;*/
+	*root->children = nullptr;
+	root = nullptr;
 	
-	delete root;
 }
 
 // Time complexity : Theta(1)
@@ -65,20 +70,23 @@ vector<string> Trie::complete(string word) {
 
 	vector<string> autocompletedwords;
 
-	bool isPrefixPresent = find(word);
-	if (!isPrefixPresent){
+	//bool isPrefixPresent = find(word);
+	/*if (!isPrefixPresent){
+		autocompletedwords = autoComplete(word, current, autocompletedwords);
 		return autocompletedwords;
 	}
-	else{
+	else{*/
 
 		for (size_t i = 0; i < word.length(); i++) {
-			
-			current = current->children[word[i] - 'a'];
+			if (current->children[word[i] - 'a'] != nullptr)
+				current = current->children[word[i] - 'a'];
+			else
+				return autocompletedwords;
 		}
 		autocompletedwords = autoComplete(word, current, autocompletedwords);
 
 	return autocompletedwords;
-	}
+	//}
 }
 
 /*recursing to find all the possible completion 
@@ -121,7 +129,7 @@ bool Trie::find(string word)
 	TrieNode* current = root;
 
 	for (size_t i = 0; i < word.length(); i++) {
-		if (current->children[word[i] - 'a'] == NULL)
+		if (current->children[word[i] - 'a'] == nullptr)
 			return false;
 		current = current->children[word[i] - 'a'];
 	}
@@ -134,4 +142,25 @@ int Trie::count() {
 //Theta(1) we already calculate during insert itself 
 int Trie::getSize() {
 	return numberOfNodes;
+}
+//Theta(n) where n is the number of nodes
+
+void Trie::trieMemoryRelease(TrieNode* current) {
+	TrieNode* nextNode;
+	for (size_t i = 0; i < 26; i++) {
+		nextNode = current->children[i];
+		if (nextNode != nullptr)
+		{
+			trieMemoryRelease(nextNode);
+			//delete[] nextNode->children;
+			//delete nextNode;
+			
+		}
+		
+	}
+	// current->children=NULL;
+	//if(current!=root)
+	 *current->children=nullptr;
+	 delete current;
+	return;
 }

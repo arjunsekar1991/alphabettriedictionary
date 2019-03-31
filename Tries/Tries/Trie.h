@@ -6,7 +6,8 @@ using namespace std;
 class TrieNode {
 public:
 	bool isLastChar = false;
-	TrieNode * children[26];
+	TrieNode* children[26] ;
+
 };
 
 class Trie {
@@ -27,9 +28,10 @@ public:
 	
 
 private:
-	TrieNode * root = NULL;
+	TrieNode* root = nullptr;
 	int numberOfNodes;
 	int numberOfWordsinTrie;
 	//is this allowed?
-	vector < string > autoComplete(string, TrieNode *, vector < string >);
+	vector < string > autoComplete(string, TrieNode*, vector < string >);
+	void trieMemoryRelease(TrieNode*);
 };
