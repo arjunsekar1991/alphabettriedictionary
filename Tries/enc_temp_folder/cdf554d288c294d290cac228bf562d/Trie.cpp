@@ -18,8 +18,8 @@ Trie::Trie()
 	root->isLastChar = false;
 	
 	//root is also node
-	numberOfNodes = 1;
-	numberOfWordsinTrie = 0;
+	int numberOfNodes = 1;
+	int numberOfWordsinTrie = 0;
 }
 // Time complexity : Theta(m) m -> number of letters in word
 bool Trie::insert(string word)
@@ -42,6 +42,7 @@ bool Trie::insert(string word)
 			{
 				
 				current = current->children[word[i] - 'a'];
+				numberOfNodes++;
 			}
 		}
 	
@@ -50,14 +51,13 @@ bool Trie::insert(string word)
 	return true;
 	}
 }
-// Theta(n) where n is the number of words with same prefix
+// Theta(n) where l is the length of prefix word
 int Trie::completeCount(string word)
 {
 	vector<string> foundwords = complete(word);
 	return foundwords.size();
 }
-//Time complexity if suppose n words are there for the given prefix then 
-//Theta (n)
+
 vector<string> Trie::complete(string word) {
 	
 
@@ -81,20 +81,14 @@ vector<string> Trie::complete(string word) {
 	}
 }
 
-/*recursing to find all the possible completion 
-parameter 1 is the word that is newly discovered in every step
-current is the node that contains the most recently discovered word
-autocompletedwords is the final output of words this will be updated based on the 
-discovered words with is last char boolean flag
-
-*/
+//recursive all to 
 vector<string> Trie::autoComplete(string word, TrieNode* current, vector<string> autocompletedwords) {
 
 	string currentLetter;
 	string discoveredWord;
 	TrieNode* nextNode;
 
-	//add the work if the boolean flag isLastChar is true
+
 	if (current->isLastChar) {
 
 		autocompletedwords.push_back(word);

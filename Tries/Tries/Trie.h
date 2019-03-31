@@ -5,7 +5,6 @@ using namespace std;
 
 class TrieNode {
 public:
-	int numberOfWordsWithSamePrefix;
 	bool isLastChar = false;
 	TrieNode * children[26];
 };
