@@ -37,3 +37,9 @@
 *.user
 *.ipch
 *.vcxproj
+*.suo
+*.ilk
+*.pdb
+*.log
+*.tlog
+*.idb

@@ -58,6 +58,7 @@ int Trie::completeCount(string word)
 	for (size_t i = 0; i < word.length(); i++) {
 		if (current->children[word[i] - 'a'] == NULL)
 		{
+			//returns 0 of no matching words are found.
 			return 0;
 		}
 		else
@@ -162,25 +163,27 @@ vector<string> Trie::complete(string word) {
 	}
 }
 vector<string> Trie::autoComplete(string word, TrieNode* current, vector<string> autocompletedwords) {
-
-	string currentLetter;
+	//Declare variables
+	char currentLetter;
 	string discoveredWord;
 	TrieNode* nextNode;
 
-
+	//Check for end of word pointer
 	if (current->isLastChar) {
-
+		//If end of word pointer exists, then add word to vector
 		autocompletedwords.push_back(word);
+
 	}
 
-
+	//Loop through pointers array
 	for (int z = 0; z < 26; z++) {
 	
 		nextNode = current->children[z];
-		//every non null pointer will start a new recursion and find new words
 		if (nextNode != nullptr) {
+		
 			currentLetter = (z + 'a');
 			discoveredWord = word + currentLetter;
+			//Recurse to the pointer of the given letter, given the new word
 			autocompletedwords = autoComplete(discoveredWord, nextNode, autocompletedwords);
 		}
 	}
