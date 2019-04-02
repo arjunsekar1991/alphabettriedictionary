@@ -3,8 +3,8 @@
 #include "Trie.h"
 
 
-//space complexity : n*m m is the length of longest word and n is number of such words
-// Time complexity : Theta(n) number of nodes
+/*space complexity : n*m m is the length of longest word and n is number of such words
+ Time complexity : Theta(n) number of nodes*/
 Trie::~Trie()
 {
 	//delete root;
@@ -59,8 +59,8 @@ int Trie::completeCount(string word)
 	vector<string> foundwords = complete(word);
 	return foundwords.size();
 }
-//Time complexity if suppose n words are there for the given prefix then 
-//Theta (n)
+/*Time complexity if suppose n words are there for the given prefix then 
+Theta (n)*/
 vector<string> Trie::complete(string word) {
 	
 
@@ -120,8 +120,8 @@ vector<string> Trie::autoComplete(string word, TrieNode* current, vector<string>
 
 	return autocompletedwords;
 }
-//theta(m) where m is the length of the word
-//is last work flag shows us whether the word is present in trie or not
+/* theta(m) where m is the length of the word
+is last work flag shows us whether the word is present in trie or not*/
 bool Trie::find(string word)
 {
 	TrieNode* current = root;
