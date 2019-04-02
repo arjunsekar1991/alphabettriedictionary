@@ -9,10 +9,7 @@ Trie::~Trie()
 {
 	//delete root;
 	trieMemoryRelease(root);
-/*	*root->children = nullptr;
-	 root=nullptr;*/
-	*root->children = nullptr;
-	root = nullptr;
+
 	
 }
 
@@ -41,6 +38,7 @@ bool Trie::insert(string word)
 			
 				current->children[word[i] - 'a'] = new TrieNode();
 				current = current->children[word[i] - 'a'];
+				//each node added is recorded here
 				numberOfNodes++;
 			}
 			else
@@ -160,7 +158,14 @@ void Trie::trieMemoryRelease(TrieNode* current) {
 	}
 	// current->children=NULL;
 	//if(current!=root)
+	//root requires special treatment here
+	if (current == root) {
+		*root->children = nullptr;
+		root = nullptr;
+		delete root;
+	}
 	 *current->children=nullptr;
 	 delete current;
+
 	return;
 }
